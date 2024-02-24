@@ -22,6 +22,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -30,6 +31,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        User::create($request->all());
+        return redirect()->route('users.index')
+        ->with('success', 'User created sucessfully');
     }
 
     /**
